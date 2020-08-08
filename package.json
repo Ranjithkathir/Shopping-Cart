@@ -1,0 +1,27 @@
+{
+  "name": "shoppingcartdemo",
+  "version": "1.0.0",
+  "description": "Shopping Cart Demo Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ranjithkathir/Shopping-Cart.git"
+  },
+  "author": "Ranjith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ranjithkathir/Shopping-Cart/issues"
+  },
+  "homepage": "https://github.com/Ranjithkathir/Shopping-Cart#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1"
+  }
+}

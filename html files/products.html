@@ -3,27 +3,111 @@
 
 <head>
     <title>Shopping Cart</title>
-    <link rel="stylesheet" src="style.css" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Online Shopping Center">
+    <meta name="keywords" content="Accessories, Mobile">
+    <!-- <meta http-equiv="refresh" content="30"> -->
+    <meta name="author" content="Ranjith">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
     <div class="grid-container">
         <header class="header">
-            Shopping Cart
+            <div class="brand">
+                <button onclick="openSidebar()">
+                    &#9776;
+                </button>
+                <a href="">Shopping Cart</a>
+            </div>
+            <div class="header-links">
+                <a href="">Cart</a>
+                <a href="">Sign In</a>
+            </div>
         </header>
-        <main class="main">
+        <aside class="sidebar">
+            <h3>Categories</h3>
+            <button class="sidebar-close-button" onclick="closeSidebar()">x</button>
             <ul>
-                <li>product 1</li>
-                <li>product 2</li>
-                <li>product 3</li>
-                <li>product 4</li>
-                <li>product 5</li>
+                <li><a href="">Mobile</a></li>
+                <li><a href="">Laptops</a></li>
             </ul>
+        </aside>
+        <main class="main">
+            <div class="content">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img class="product-image" src="./images/p1.jpeg" alt="p1" />
+                            </div>
+                            <div class="product-name"><a href="">XA1</a></div>
+                            <div class="product-brand">Sony</div>
+                            <div class="product-price">&#8377;10,000</div>
+                            <div class="product-rating">4.5 stars (10 Reviews)</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img class="product-image" src="./images/p1.jpeg" alt="p1" />
+                            </div>
+                            <div class="product-name"><a href="">XA1</a></div>
+                            <div class="product-brand">Sony</div>
+                            <div class="product-price">&#8377;10,000</div>
+                            <div class="product-rating">4.5 stars (10 Reviews)</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img class="product-image" src="./images/p1.jpeg" alt="p1" />
+                            </div>
+                            <div class="product-name"><a href="">XA1</a></div>
+                            <div class="product-brand">Sony</div>
+                            <div class="product-price">&#8377;10,000</div>
+                            <div class="product-rating">4.5 stars (10 Reviews)</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img class="product-image" src="./images/p1.jpeg" alt="p1" />
+                            </div>
+                            <div class="product-name"><a href="">XA1</a></div>
+                            <div class="product-brand">Sony</div>
+                            <div class="product-price">&#8377;10,000</div>
+                            <div class="product-rating">4.5 stars (10 Reviews)</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img class="product-image" src="./images/p1.jpeg" alt="p1" />
+                            </div>
+                            <div class="product-name"><a href="">XA1</a></div>
+                            <div class="product-brand">Sony</div>
+                            <div class="product-price">&#8377;10,000</div>
+                            <div class="product-rating">4.5 stars (10 Reviews)</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </main>
         <footer class="footer">
             All rights reserved
         </footer>
     </div>
+    <script>
+        function openSidebar() {
+            document.querySelector(".sidebar").classList.add("open");
+        }
+
+        function closeSidebar() {
+            document.querySelector(".sidebar").classList.remove("open");
+        }
+    </script>
 </body>
 
 </html>
