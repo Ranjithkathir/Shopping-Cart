@@ -1,26 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './App.css';
+import ProductList from './components/ProductList';
+import ProductDetail from './components/ProductDetail';
+import Cart from './components/Cart';
+
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const openSidebar = () => {
+        document.querySelector(".sidebar").classList.add("open");
+    }
+    const closeSidebar = () => {
+        document.querySelector(".sidebar").classList.remove("open");
+    }
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <div className="grid-container">
+                    <header className="header">
+                        <div className="brand">
+                            <button onClick={openSidebar}>
+                                &#9776;
+                        </button>
+                            <Link to="/products">Shopping Cart</Link>
+                        </div>
+                        <div className="header-links">
+                            <Link to="">Cart</Link>
+                            <Link to="">Sign In</Link>
+                        </div>
+                    </header>
+                    <aside className="sidebar">
+                        <h3>Categories</h3>
+                        <button className="sidebar-close-button" onClick={closeSidebar}>x</button>
+                        <ul>
+                            <li><Link to="">Mobile</Link></li>
+                            <li><Link to="">Laptops</Link></li>
+                        </ul>
+                    </aside>
+                    <main className="main">
+                        <div className="content">
+                            <Route path="/products" exact={true} component={ProductList} />
+                            <Route path="/products/:id" exact={true} component={ProductDetail} />
+                            <Route path="/cart/:id?" component={Cart} />
+                        </div>
+                    </main>
+                    <footer className="footer">
+                        All rights reserved
+                </footer>
+                </div>
+            </BrowserRouter>
+        </Provider>
+    );
 }
 
 export default App;
