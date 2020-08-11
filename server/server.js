@@ -1,8 +1,16 @@
 const express = require('express');
 import data from './data';
+import connectDB from './config/db';
+import bodyParser from 'body-parser';
+import user from './routes/user';
 
 const app = express();
+app.use(bodyParser.json());
+// DB Connection
 
+connectDB();
+
+app.use("/api/users", user);
 app.get("/", (req, res) => {
     res.send("Happy Code in Node");
 })

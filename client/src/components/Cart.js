@@ -21,7 +21,12 @@ function Cart(props) {
         if (productId) {
             dispatch(addToCart(productId, qty));
         }
-    }, [])
+    }, []);
+
+    const checkoutHandler = () => {
+        // props.history.push('/signin?redirect=shipping');
+        props.history.push('/shipping');
+    }
 
     return <div className="cart">
         <div className="cart-list">
@@ -47,9 +52,10 @@ function Cart(props) {
                                     </div>
                                     <div>
                                         Qty:
-                                        <select>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
+                                        <select value={cartItem.qty} onChange={(e) => dispatch(addToCart(cartItem.product, e.target.value))}>
+                                            {[...Array(cartItem.countInStock).keys()].map(x =>
+                                                <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                            )}
                                         </select>
                                         <button type="button" className="button" onClick={() => removeFromCartHandler(cartItem.product)}>Delete</button>
                                     </div>
@@ -68,7 +74,7 @@ function Cart(props) {
                 :
                 &#8377; {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
             </h3>
-            <button className="button primary" disabled={cartItems.length === 0}>
+            <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}>
                 Proceed To Checkout
             </button>
         </div>

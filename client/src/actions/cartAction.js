@@ -1,8 +1,9 @@
 import Axios from 'axios';
+import Cookies from 'js-cookie';
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './types';
 
 // To Add A product In a Cart
-export const addToCart = (productId, qty) => async (dispatch) => {
+export const addToCart = (productId, qty) => async (dispatch, getState) => {
 
     try {
 
@@ -20,16 +21,16 @@ export const addToCart = (productId, qty) => async (dispatch) => {
             }
         });
 
+        const { cartReducer: { cartItems } } = getState();
+        Cookies.set("cartItems", JSON.stringify(cartItems));
+
     } catch (err) {
-        dispatch({
-            // type: ADD_CART_FAIl,
-            // payload: err.message
-        });
+
     }
 };
 
-// To Add A product In a Cart
-export const removeFromCart = (productId) => (dispatch) => {
+// To Remove A product In a Cart
+export const removeFromCart = (productId) => (dispatch, getState) => {
 
     try {
         dispatch({
@@ -37,10 +38,10 @@ export const removeFromCart = (productId) => (dispatch) => {
             payload: productId
         });
 
+        const { cartReducer: { cartItems } } = getState();
+        Cookies.set("cartItems", JSON.stringify(cartItems));
+
     } catch (err) {
-        dispatch({
-            // type: CART_REMOVE_ITEM_Fail,
-            // payload: err.message
-        });
+
     }
 };
