@@ -4,8 +4,13 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToCart, removeFromCart } from '../actions/cartAction';
+import { loadUser } from '../actions/auth';
 
 function Cart(props) {
+
+    useEffect(() => {
+        loadUser();
+    }, []);
 
     const cart = useSelector(state => state.cartReducer);
 

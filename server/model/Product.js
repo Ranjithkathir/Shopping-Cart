@@ -28,8 +28,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     rating: {
         type: Number,
@@ -41,7 +40,10 @@ const productSchema = new mongoose.Schema({
         default: 0,
         required: true
     },
-
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const Product = mongoose.model("Product", productSchema);

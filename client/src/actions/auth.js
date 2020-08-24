@@ -1,64 +1,95 @@
 import Axios from 'axios';
-import Cookies from 'js-cookie';
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, LOGOUT } from './types';
+import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, LOGOUT, USER_LOADED, AUTH_ERROR } from './types';
+import { setAlert } from './alert';
+import setAuthToken from '../utils/setAuthToken';
+
+// Auth User
+export const loadUser = () => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+
+    try {
+        const res = await Axios.get('api/users/getauthuser');
+
+        dispatch({
+            type: USER_LOADED,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR,
+        });
+    }
+};
 
 // User Login
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password) => async dispatch => {
 
-    dispatch({
-        type: USER_LOGIN_REQUEST,
-        payload: {
-            email,
-            password
-        }
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    const body = JSON.stringify({
+        email,
+        password,
     });
 
     try {
 
-        const { data } = await Axios.post("/api/users/login", { email, password });
-
+        const res = await Axios.post("/api/users/login", body, config);
+        console.log(res.data)
         dispatch({
             type: USER_LOGIN_SUCCESS,
-            payload: data
+            payload: res.data
         });
 
-        Cookies.set("userInfo", JSON.stringify(data));
+        dispatch(loadUser());
 
     } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: err.message
         });
     }
 };
 
 // User Register
-export const register = (name, email, password) => async (dispatch) => {
+export const register = ({ name, email, password }) => async dispatch => {
 
-    dispatch({
-        type: USER_REGISTER_REQUEST,
-        payload: {
-            name,
-            email,
-            password
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
         }
-    });
+    }
+
+    const body = JSON.stringify({ name, email, password })
 
     try {
 
-        const { data } = await Axios.post("/api/users/register", { name, email, password });
+        const res = await Axios.post("/api/users/register", body, config);
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
-            payload: data
+            payload: res.data
         });
 
-        Cookies.set("userInfo", JSON.stringify(data));
+        dispatch(loadUser());
 
     } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
         dispatch({
             type: USER_REGISTER_FAIL,
-            payload: err.message
         });
     }
 };
@@ -69,5 +100,4 @@ export const logout = () => (dispatch) => {
 
     dispatch({ type: LOGOUT });
 
-    Cookies.remove('userInfo', {});
 };

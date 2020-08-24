@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { productDetails } from '../actions/productDetail';
+import Loader from '../components/layouts/Loader';
 
 function ProductDetail(props) {
 
@@ -25,9 +26,9 @@ function ProductDetail(props) {
 
     return <div>
         <div className="back-to-product">
-            <Link to='/products'>Back to Products</Link>
+            <Link to='/products'>{'<<'} Back to Products</Link>
         </div>
-        {loading ? <div>Loading...</div> :
+        {loading ? <Loader /> :
             error ? <div>{error}</div> :
                 (
                     <div className="details">
@@ -36,7 +37,7 @@ function ProductDetail(props) {
                         </div>
                         <div className="details-info">
                             <ul>
-                                <li><h4>{product.name}</h4></li>
+                                <li><h4><Link to={"/products/" + product._id}>{product.name}</Link></h4></li>
                                 <li>{product.rating} stars ({product.numReviews} Reviews)</li>
                                 <li>Price : <b>&#8377;{product.price}</b></li>
                                 <li>
@@ -70,11 +71,13 @@ function ProductDetail(props) {
 }
 
 ProductDetail.propTypes = {
-    productDetails: PropTypes.func.isRequired
+    // auth: PropTypes.object.isRequired,
+    productDetails: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
     // isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default withRouter(connect(mapStateToProps, { productDetails })(ProductDetail));
+export default connect(mapStateToProps, { productDetails })(ProductDetail);

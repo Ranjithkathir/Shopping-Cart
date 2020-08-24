@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const User = mongoose.model("User", userSchema);
