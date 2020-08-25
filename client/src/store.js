@@ -6,7 +6,7 @@ import rootReducer from './reducers';
 
 const cartItems = Cookies.getJSON("cartItems") || [];
 
-const initialState = { cartReducer: { cartItems } };
+const initialState = { cartReducer: { cartItems, shipping: {}, payment: {} } };
 
 const middleware = [thunk];
 

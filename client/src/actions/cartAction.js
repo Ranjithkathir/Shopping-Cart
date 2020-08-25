@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Cookies from 'js-cookie';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING, CART_SAVE_PAYMENT } from './types';
 
 // To Add A product In a Cart
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
@@ -45,3 +45,27 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
 
     }
 };
+
+// To Save Shipping Address
+export const saveShipping = (data) => (dispatch) => {
+    try {
+        dispatch({
+            type: CART_SAVE_SHIPPING,
+            payload: data
+        });
+    } catch (err) {
+
+    }
+}
+
+// To Save Payment Option
+export const savePayment = (data) => (dispatch) => {
+    try {
+        dispatch({
+            type: CART_SAVE_PAYMENT,
+            payload: data
+        });
+    } catch (err) {
+
+    }
+}

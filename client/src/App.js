@@ -14,6 +14,9 @@ import Profile from './components/profile/Profile';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import ProductManage from './components/productmanage/ProductManage';
+import Shipping from './components/Shipping';
+import Payment from './components/Payment';
+import Placeorder from './components/Placeorder';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -49,6 +52,9 @@ const App = () => {
                                     <Privateroute path="/products/:id" exact={true} component={ProductDetail} />
                                     <Privateroute path="/cart/:id?" component={Cart} />
                                     <Privateroute path="/productmanage" component={ProductManage} />
+                                    <Privateroute path="/shipping" component={Shipping} />
+                                    <Privateroute path="/payment" component={Payment} />
+                                    <Privateroute path="/placeorder" component={Placeorder} />
                                 </Switch>
                             </div>
                         </main>

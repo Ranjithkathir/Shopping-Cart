@@ -24,11 +24,11 @@ const Header = ({ loadUser, auth: { isAuthenticated, userInfo, loading }, logout
     return (
         <header className="header">
             <div className="brand">
-                {isAuthenticated &&
+                {/* {isAuthenticated &&
                     <button onClick={openSidebar}>
                         &#9776;
-                    </button>
-                }
+                    </button> */}
+
                 <Link to="/">Shopping Cart</Link>
             </div>
             <div className="header-links">

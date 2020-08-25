@@ -1,4 +1,5 @@
-import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, LOGOUT, USER_LOADED, AUTH_ERROR } from '../actions/types'
+import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, LOGOUT, USER_LOADED, AUTH_ERROR } from '../actions/types';
+import Cookies from 'js-cookie';
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -34,6 +35,7 @@ export default function (state = initialState, action) {
         case AUTH_ERROR:
         case LOGOUT:
             localStorage.removeItem('token');
+            Cookies.remove("cartItems");
             return {
                 ...state,
                 token: null,
